@@ -1,5 +1,5 @@
 {
-  "name": "proposal-string-trim-argument",
+  "name": "proposal-string-trim-characters",
   "description": "Proposal to add argument for `.trim()`, `.trimStart()` and `.trimEnd()` to allow strip the specified characters from strings.",
   "version": "0.0.1",
   "author": {
@@ -11,10 +11,10 @@
     "build": "npm run build-loose -- --strict",
     "build-loose": "ecmarkup --verbose spec.emu docs/index.html"
   },
-  "homepage": "https://github.com/Kingwl/proposal-string-trim-argument",
+  "homepage": "https://github.com/Kingwl/proposal-string-trim-characters",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Kingwl/proposal-string-trim-argument"
+    "url": "git+https://github.com/Kingwl/proposal-string-trim-characters"
   },
   "license": "MIT",
   "devDependencies": {
