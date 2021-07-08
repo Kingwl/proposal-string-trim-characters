@@ -1,60 +1,93 @@
-# template-for-proposals
+# [proposal-string-trim-argument](https://github.com/Kingwl/proposal-string-trim-argument)
 
-A repository template for ECMAScript proposals.
+Proposal to add argument for `.trim()`, `.trimStart()` and `.trimEnd()` to allow strip the specified characters from strings.
 
-## Before creating a proposal
+## Status
 
-Please ensure the following:
-  1. You have read the [process document](https://tc39.github.io/process-document/)
-  1. You have reviewed the [existing proposals](https://github.com/tc39/proposals/)
-  1. You are aware that your proposal requires being a member of TC39, or locating a TC39 delegate to "champion" your proposal
+This proposal is a [stage-0 proposal](https://github.com/tc39/proposals/blob/master/stage-0-proposals.md) and waiting for feedback.
 
-## Create your proposal repo
+## Motivation
 
-Follow these steps:
-  1.  Click the green ["use this template"](https://github.com/tc39/template-for-proposals/generate) button in the repo header. (Note: Do not fork this repo in GitHub's web interface, as that will later prevent transfer into the TC39 organization)
-  1.  Go to your repo settings “Options” page, under “GitHub Pages”, and set the source to the **main branch** under the root (and click Save, if it does not autosave this setting)
-      1. check "Enforce HTTPS"
-      1. On "Options", under "Features", Ensure "Issues" is checked, and disable "Wiki", and "Projects" (unless you intend to use Projects)
-      1. Under "Merge button", check "automatically delete head branches"
-<!--
-  1.  Avoid merge conflicts with build process output files by running:
-      ```sh
-      git config --local --add merge.output.driver true
-      git config --local --add merge.output.driver true
-      ```
-  1.  Add a post-rewrite git hook to auto-rebuild the output on every commit:
-      ```sh
-      cp hooks/post-rewrite .git/hooks/post-rewrite
-      chmod +x .git/hooks/post-rewrite
-      ```
--->
-  3.  ["How to write a good explainer"][explainer] explains how to make a good first impression.
+We often remove some leading/trailing whitespaces from the beginning or end (or both) of a string by `trim`, `trimStart`, and `trimEnd`.
 
-      > Each TC39 proposal should have a `README.md` file which explains the purpose
-      > of the proposal and its shape at a high level.
-      >
-      > ...
-      >
-      > The rest of this page can be used as a template ...
+We can only remove the [WhiteSpace](https://262.ecma-international.org/11.0/#prod-WhiteSpace) and [LineTerminator](https://262.ecma-international.org/11.0/#prod-LineTerminator). If you want to remove some other strings who not defined by whitespace. There's no semantical and convenience way to do that.
 
-      Your explainer can point readers to the `index.html` generated from `spec.emu`
-      via markdown like
+The major point of the proposal is **semantical** and **convenience**.
 
-      ```markdown
-      You can browse the [ecmarkup output](https://ACCOUNT.github.io/PROJECT/)
-      or browse the [source](https://github.com/ACCOUNT/PROJECT/blob/HEAD/spec.emu).
-      ```
+For now. How could we remove some specific leading/trailing characters?
 
-      where *ACCOUNT* and *PROJECT* are the first two path elements in your project's Github URL.
-      For example, for github.com/**tc39**/**template-for-proposals**, *ACCOUNT* is "tc39"
-      and *PROJECT* is "template-for-proposals".
+- regex
 
+```ts
+const str = "-_-abc-_-";
+const characters = "-_";
 
-## Maintain your proposal repo
+const charactersList = characters.split('').join('|')
+const regex = new RegExp(`(^(${charactersList})*)|((${charactersList})*$)`, 'g')
+console.log(str.replaceAll(regex, ''))
+```
 
-  1. Make your changes to `spec.emu` (ecmarkup uses HTML syntax, but is not HTML, so I strongly suggest not naming it ".html")
-  1. Any commit that makes meaningful changes to the spec, should run `npm run build` and commit the resulting output.
-  1. Whenever you update `ecmarkup`, run `npm run build` and commit any changes that come from that dependency.
+- manually
 
-  [explainer]: https://github.com/tc39/how-we-work/blob/HEAD/explainer.md
+```ts
+const str = "-_-abc-_-";
+const characters = "-_";
+
+let start = 0;
+while (characters.indexOf(str[start]) >= 0) {
+    start += 1;
+}
+let end = str.length - 1;
+while (characters.indexOf(str[end]) >= 0) {
+    end -= 1;
+}
+
+console.log(str.substr(start, end - start + 1)) // abc
+```
+
+As you can see. For the both solution, there's no idea about what does it doing when you see it, You have to pay attention on it to understand it. 
+
+And for the regex version, there's might also performance issue as [TypeScript's implementations said](https://github.com/microsoft/TypeScript/blob/main/src/compiler/core.ts#L2330-L2344): [jsbench](https://jsbench.me/gjkoxld4au/1).
+
+That's why we need this proposal. It's will add some **semantic** and **convenience** way to `clearly representing the operation i want`. And as a possible bonus, it also reduces the amount of very poorly performing code we write.
+
+## Core API
+
+Add an optional argument `characters` into `String.prototype.trim` ,  `String.prototype.trimStart`and   `String.prototype.trimEnd`. 
+
+This argument will allow us which characters will be remove from the start or end (or both) from the string.
+
+The definition of API will looks like:
+
+```ts
+interface String {
+    trim(characters?: string): string;
+    trimStart(characters?: string): string;
+    trimEnd(characters?: string): string;
+}
+
+```
+
+With this proposal, we could use as:
+
+```typescript
+const str = "-_-abc-_-";
+const characters = "-_";
+
+console.log(str.trim(characters)) // abc
+console.log(str.trimStart(characters)) // abc-_-
+console.log(str.trimEnd(characters)) // -_-abc
+```
+
+## Related
+
+- Lodash - [lodash.trim](https://lodash.com/docs/4.17.15#trim), [lodash.trimStart](https://lodash.com/docs/4.17.15#trimStart), [lodash.trimEnd](https://lodash.com/docs/4.17.15#trimEnd)
+- PHP - [function.trim](https://www.php.net/manual/en/function.trim.php), [function.ltrim](https://www.php.net/manual/en/function.ltrim.php), [function.rtrim](https://www.php.net/manual/en/function.rtrim.php)
+- Python - [str.strip](https://docs.python.org/3/library/stdtypes.html#str.strip), [str.lstrip](https://docs.python.org/3/library/stdtypes.html#str.lstrip), [str.rstrip](https://docs.python.org/3/library/stdtypes.html#str.rstrip)
+
+### Proposer
+
+Champions:
+
+- @Kingwl (Wenlu Wang, KWL)
+
