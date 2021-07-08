@@ -12,6 +12,7 @@ We often remove some leading/trailing whitespaces from the beginning or end (or 
 
 We can only remove the [WhiteSpace](https://262.ecma-international.org/11.0/#prod-WhiteSpace) and [LineTerminator](https://262.ecma-international.org/11.0/#prod-LineTerminator). If you want to remove some other strings who not defined by whitespace. There's no semantical and convenience way to do that.
 
+### Semantical & Convenience
 The major point of the proposal is **semantical** and **convenience**.
 
 For now. How could we remove some specific leading/trailing characters?
@@ -48,9 +49,48 @@ console.log(str.substr(start, end - start + 1)) // abc
 
 As you can see. For these both solutions, there's no idea about what does it doing when you see it, You have to pay attention on it to understand it. 
 
+### Unicode
+
+Another complex problem is unicode surrogate pair. It's hard to resolve the unicode surrogate pair with a simple solution.
+
+For example:
+
+```ts
+const str = '😔😒1😀1😒😔'
+const characters = "😔";
+
+const charactersList = characters.split('').join('|') // 
+const regex = new RegExp(`(^(${charactersList})*)|((${charactersList})*$)`, 'g')
+
+console.log(str.replaceAll(regex, '')) // expected: 😒1😀1😒, actual: �1😀1😒
+```
+
+And also:
+
+```ts
+const str = '😔😒1😀1😒😔'
+const characters = "😔";
+
+let start = 0;
+while (characters.indexOf(str[start]) >= 0) {
+    start += 1;
+}
+let end = str.length - 1;
+while (characters.indexOf(str[end]) >= 0) {
+    end -= 1;
+}
+
+console.log(str.substr(start, end - start + 1)) // expected: 😒1😀1😒, actual: �1😀1😒
+```
+They convert from `["\ud83d", "\ude14", "\ud83d", "\ude12", "1", "\ud83d", "\ude00", "1", "\ud83d", "\ude12", "\ud83d", "\ude14"] ` to `["\ude12", "1", "\ud83d", "\ude00", "1", "\ud83d", "\ude12"]`.
+
+### Performance
+
 And for the regex version, there's might also performance issue as [TypeScript's implementations](https://github.com/microsoft/TypeScript/blob/main/src/compiler/core.ts#L2330-L2344): [jsbench](https://jsbench.me/gjkoxld4au/1).
 
-That's why we need this proposal. It's will add some **semantic** and **convenience** way to `clearly representing the operation i want`. And as a possible bonus, it also reduces the amount of very poorly performing code we write.
+### Consolation
+
+That's why we need this proposal. It's will add some **semantic** and **convenience** way to `clearly representing the operation i want`. And we could handle the unicode string by a correct way what we wanted. And as a possible bonus, it also reduces the amount of very poorly performing code we write.
 
 ## Core API
 
@@ -78,6 +118,17 @@ const characters = "-_";
 console.log(str.trim(characters)) // abc
 console.log(str.trimStart(characters)) // abc-_-
 console.log(str.trimEnd(characters)) // -_-abc
+```
+
+and also with unicode:
+
+```ts
+const str = '😔😒1😀1😒😔'
+const characters = "😔";
+
+console.log(str.trim(characters)) // 😒1😀1😒
+console.log(str.trimStart(characters)) // 😒1😀1😒😔
+console.log(str.trimEnd(characters)) // 😔😒1😀1😒
 ```
 
 ## Prior art
