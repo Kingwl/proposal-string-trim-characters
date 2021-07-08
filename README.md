@@ -80,7 +80,7 @@ console.log(str.trimStart(characters)) // abc-_-
 console.log(str.trimEnd(characters)) // -_-abc
 ```
 
-## Related
+## Prior art
 
 - Lodash - [lodash.trim](https://lodash.com/docs/4.17.15#trim), [lodash.trimStart](https://lodash.com/docs/4.17.15#trimStart), [lodash.trimEnd](https://lodash.com/docs/4.17.15#trimEnd)
 - PHP - [function.trim](https://www.php.net/manual/en/function.trim.php), [function.ltrim](https://www.php.net/manual/en/function.ltrim.php), [function.rtrim](https://www.php.net/manual/en/function.rtrim.php)
