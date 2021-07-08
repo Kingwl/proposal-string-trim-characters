@@ -1,4 +1,4 @@
-# [proposal-string-trim-argument](https://github.com/Kingwl/proposal-string-trim-argument)
+# [proposal-string-trim-characters](https://github.com/Kingwl/proposal-string-trim-characters)
 
 Proposal to add argument for `.trim()`, `.trimStart()` and `.trimEnd()` to allow strip the specified characters from strings.
 
@@ -47,7 +47,7 @@ console.log(str.substr(start, end - start + 1)) // abc
 
 As you can see. For the both solution, there's no idea about what does it doing when you see it, You have to pay attention on it to understand it. 
 
-And for the regex version, there's might also performance issue as [TypeScript's implementations said](https://github.com/microsoft/TypeScript/blob/main/src/compiler/core.ts#L2330-L2344): [jsbench](https://jsbench.me/gjkoxld4au/1).
+And for the regex version, there's might also performance issue as [TypeScript's implementations](https://github.com/microsoft/TypeScript/blob/main/src/compiler/core.ts#L2330-L2344): [jsbench](https://jsbench.me/gjkoxld4au/1).
 
 That's why we need this proposal. It's will add some **semantic** and **convenience** way to `clearly representing the operation i want`. And as a possible bonus, it also reduces the amount of very poorly performing code we write.
 
