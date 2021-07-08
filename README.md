@@ -24,7 +24,8 @@ const characters = "-_";
 
 const charactersList = characters.split('').join('|')
 const regex = new RegExp(`(^(${charactersList})*)|((${charactersList})*$)`, 'g')
-console.log(str.replaceAll(regex, ''))
+
+console.log(str.replaceAll(regex, '')) // abc
 ```
 
 - manually
