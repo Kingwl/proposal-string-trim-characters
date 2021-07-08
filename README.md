@@ -138,7 +138,12 @@ console.log(str.trimEnd(characters)) // 😔😒1😀1😒
 - Python - [str.strip](https://docs.python.org/3/library/stdtypes.html#str.strip), [str.lstrip](https://docs.python.org/3/library/stdtypes.html#str.lstrip), [str.rstrip](https://docs.python.org/3/library/stdtypes.html#str.rstrip)
 - C# - [String.Trim](https://docs.microsoft.com/en-us/dotnet/api/system.string.trim?view=net-5.0), [String.TrimStart](https://docs.microsoft.com/en-us/dotnet/api/system.string.trimstart?view=net-5.0), [String.TrimEnd](https://docs.microsoft.com/en-us/dotnet/api/system.string.trimend?view=net-5.0)
 
-### Proposer
+## Previous discuss
+- https://github.com/tc39/proposal-string-left-right-trim/issues/22 
+- https://esdiscuss.org/topic/string-trim-chars 
+- https://esdiscuss.org/topic/string-prototype-trimstart-string-prototype-trimend-with-a-given-string
+
+## Proposer
 
 Champions:
 
