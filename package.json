@@ -1,16 +1,20 @@
 {
-  "private": true,
-  "name": "template-for-proposals",
-  "description": "A repository template for ECMAScript proposals.",
+  "name": "proposal-string-trim-argument",
+  "description": "Proposal to add argument for `.trim()`, `.trimStart()` and `.trimEnd()` to allow strip the specified characters from strings.",
+  "version": "0.0.1",
+  "author": {
+    "name": "Wenlu Wang",
+    "email": "kingwenlu@gmail.com"
+  },
   "scripts": {
     "start": "npm run build-loose -- --watch",
     "build": "npm run build-loose -- --strict",
-    "build-loose": "ecmarkup --verbose spec.emu index.html"
+    "build-loose": "ecmarkup --verbose spec.emu docs/index.html"
   },
-  "homepage": "https://github.com/tc39/template-for-proposals#readme",
+  "homepage": "https://github.com/Kingwl/proposal-string-trim-argument",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tc39/template-for-proposals.git"
+    "url": "git+https://github.com/Kingwl/proposal-string-trim-argument"
   },
   "license": "MIT",
   "devDependencies": {
