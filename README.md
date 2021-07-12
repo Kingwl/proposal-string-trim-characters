@@ -137,6 +137,7 @@ console.log(str.trimEnd(characters)) // 😔😒1😀1😒
 - PHP - [function.trim](https://www.php.net/manual/en/function.trim.php), [function.ltrim](https://www.php.net/manual/en/function.ltrim.php), [function.rtrim](https://www.php.net/manual/en/function.rtrim.php)
 - Python - [str.strip](https://docs.python.org/3/library/stdtypes.html#str.strip), [str.lstrip](https://docs.python.org/3/library/stdtypes.html#str.lstrip), [str.rstrip](https://docs.python.org/3/library/stdtypes.html#str.rstrip)
 - C# - [String.Trim](https://docs.microsoft.com/en-us/dotnet/api/system.string.trim?view=net-5.0), [String.TrimStart](https://docs.microsoft.com/en-us/dotnet/api/system.string.trimstart?view=net-5.0), [String.TrimEnd](https://docs.microsoft.com/en-us/dotnet/api/system.string.trimend?view=net-5.0)
+- Go - [Trim](https://golang.org/pkg/strings/#Trim), [TrimLeft](https://golang.org/pkg/strings/#TrimLeft), [TrimRight](https://golang.org/pkg/strings/#TrimRight), [TrimPrefix](https://golang.org/pkg/strings/#TrimPrefix), [TrimSuffix](https://golang.org/pkg/strings/#TrimSuffix)
 
 ## Previous discuss
 - https://github.com/tc39/proposal-string-left-right-trim/issues/22 
