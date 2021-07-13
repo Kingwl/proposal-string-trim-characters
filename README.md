@@ -59,8 +59,7 @@ For example:
 const str = '😔😒1😀1😒😔'
 const characters = "😔";
 
-const charactersList = characters.split('').join('|') // 
-const regex = new RegExp(`(^(${charactersList})*)|((${charactersList})*$)`, 'g')
+const regex = new RegExp(`(^[${characters}]*)|([${characters}]*$)`, 'g')
 
 console.log(str.replaceAll(regex, '')) // expected: 😒1😀1😒, actual: �1😀1😒
 ```
