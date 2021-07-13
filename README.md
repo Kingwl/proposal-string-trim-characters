@@ -23,8 +23,7 @@ For now. How could we remove some specific leading/trailing characters?
 const str = "-_-abc-_-";
 const characters = "-_";
 
-const charactersList = characters.split('').join('|')
-const regex = new RegExp(`(^(${charactersList})*)|((${charactersList})*$)`, 'g')
+const regex = new RegExp(`(^[${characters}]*)|([${characters}]*$)`, 'g')
 
 console.log(str.replaceAll(regex, '')) // abc
 ```
