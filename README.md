@@ -50,11 +50,11 @@ As you can see. For these both solutions, there's no idea about what does it doi
 
 ### Performance
 
-And for the regex version, there's might also performance issue as [TypeScript's implementations](https://github.com/microsoft/TypeScript/blob/main/src/compiler/core.ts#L2330-L2344): [jsbench](https://jsbench.me/gjkoxld4au/1).
+And for the regex version, there's might also performance issue as [TypeScript's implementation](https://github.com/microsoft/TypeScript/blob/53ef2fc90dcfdafd732b3229e72fc8dd1dd6378c/src/compiler/core.ts#L2913-L2926): [jsbench](https://jsbench.me/gjkoxld4au/1).
 
 ### Consolation
 
-That's why we need this proposal. It's will add some **semantic** and **convenience** way to `clearly representing the operation i want`. And as a possible bonus, it also reduces the amount of very poorly performing code we write.
+That's why we need this proposal. It will add some **semantic** and **convenience** way to `clearly representing the operation i want`. And as a possible bonus, it also reduces the amount of very poorly performing code we write.
 
 ## Core API
 
